@@ -42,13 +42,36 @@
             </div>
         </div>
     </nav>
+    <!-- FOrm for taking notes -->
+    <div class="container my-3">
+        <h2>Add a Note</h2>
+        <form>
+            <div class="mb-3">
+                <label for="note_title" class="form-label">Note Title</label>
+                <input type="text" class="form-control" id="note_title" name="note_title" aria-describedby="textHelp">
 
-   
+            </div>
+            <div class="mb-3">
+                <label for="note_description" class="form-label">Note Description</label>
+                <textarea class="form-control" id="note_description" name="note_description" rows="3"
+                    cols="10"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </form>
+    </div>
+    <div class="container">
+        <?PHP
+        
+
+        ?>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
 
-    
+
 </body>
 
 </html>
