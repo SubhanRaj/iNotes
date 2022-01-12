@@ -1,4 +1,7 @@
 <?PHP
+
+$insert = false;
+
 // Connect to the database
 $servername = "localhost";
 $username = "root";
@@ -71,6 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </nav>
+    <!-- Alert when user insert note sucessfully -->
+    <?PHP
+
+    if ($insert) {
+        echo "<div class='alert alert-success warning alert-dismissible fade show' role='alert'>
+  <strong>Success!</strong> Your note has been inserted sucessfully.
+  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+</div>";
+    }
+
+    ?>
+
     <!-- FOrm for taking notes -->
     <div class="container my-3">
         <h2>Add a Note</h2>
