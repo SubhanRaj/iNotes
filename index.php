@@ -21,19 +21,30 @@ if (!$conn) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['snoEdit'])) {
-        echo 'yes';
-        exit();
-    }
-    $title = $_POST["note_title"];
-    $desc = $_POST["note_desc"];
-    // SQL query to insert data in database
-    $sql = "INSERT INTO `notes` (`note_title`, `note_desc`) VALUES ('$title', '$desc')";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        // echo "The record has been inserted sucessfully<br>";
-        $insert = true;
+        // Update the record
+        $sno = $_POST["snoEdit"];
+        $title = $_POST["note_title_edit"];
+        $desc = $_POST["description_edit"];
+        // SQL query to update data in database
+        $sql = "UPDATE `notes` SET `note_title` = '$title' , `description` = ' $desc' WHERE `notes`.`sno` = $sno";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . mysqli_error($conn);
+        }
     } else {
-        echo "The record was not inserted sucessfull becaue of this error ---> " . mysqli_error($conn);
+        $title = $_POST["note_title"];
+        $desc = $_POST["description"];
+        // SQL query to insert data in database
+        $sql = "INSERT INTO `notes` (`note_title`, `description`) VALUES ('$title', '$desc')";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            // echo "The record has been inserted sucessfully<br>";
+            $insert = true;
+        } else {
+            echo "The record was not inserted sucessfull becaue of this error ---> " . mysqli_error($conn);
+        }
     }
 }
 ?>
@@ -76,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         </div>
                         <div class="mb-3">
-                            <label for="note_desc" class="form-label">Note Description</label>
-                            <textarea class="form-control" id="note_desc_edit" name="note_desc_edit" rows="3" cols="10"></textarea>
+                            <label for="description" class="form-label">Note Description</label>
+                            <textarea class="form-control" id="description_edit" name="description_edit" rows="3" cols="10"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Note</button>
                     </form>
@@ -137,8 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             </div>
             <div class="mb-3">
-                <label for="note_desc" class="form-label">Note Description</label>
-                <textarea class="form-control" id="note_desc" name="note_desc" rows="3" cols="10"></textarea>
+                <label for="description" class="form-label">Note Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" cols="10"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Add Note</button>
         </form>
@@ -167,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <tr>
                     <th scope='row'>" . $sno . "</th>
                     <td>" . $row['note_title'] . "</td>
-                    <td>" . $row['note_desc'] . "</td>
+                    <td>" . $row['description'] . "</td>
                     <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <a href='/del'>Delete</a></td>
                 </tr>
                 ";
@@ -198,10 +209,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 console.log("edit", );
                 tr = e.target.parentNode.parentNode
                 note_title = document.getElementsByTagName("td")[0].innerText;
-                note_desc = document.getElementsByTagName("td")[1].innerText;
-                console.log(note_title, note_desc);
+                description = document.getElementsByTagName("td")[1].innerText;
+                console.log(note_title, description);
                 note_title_edit.value = note_title;
-                note_desc_edit.value = note_desc;
+                description_edit.value = description;
                 snoEdit.value = e.target.id;
                 console.log(e.target.id);
                 $('#editModal').modal('toggle');
