@@ -21,24 +21,32 @@ if (!$conn) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['snoEdit'])) {
+
         // Update the record
+
         $sno = $_POST["snoEdit"];
         $title = $_POST["note_title_edit"];
-        $desc = $_POST["description_edit"];
+        $description = $_POST["description_edit"];
+
         // SQL query to update data in database
-        $sql = "UPDATE `notes` SET `note_title` = '$title' , `description` = ' $desc' WHERE `notes`.`sno` = $sno";
+
+        $sql = "UPDATE `notes` SET `note_title` = '$title' , `description` = '$description' WHERE `notes`.`sno` = $sno";
         $result = mysqli_query($conn, $sql);
+
         if ($result) {
-            echo "Record updated successfully";
+            $update = true;
         } else {
             echo "Error updating record: " . mysqli_error($conn);
         }
     } else {
+
         $title = $_POST["note_title"];
-        $desc = $_POST["description"];
+        $description = $_POST["description"];
+
         // SQL query to insert data in database
         $sql = "INSERT INTO `notes` (`note_title`, `description`) VALUES ('$title', '$desc')";
         $result = mysqli_query($conn, $sql);
+
         if ($result) {
             // echo "The record has been inserted sucessfully<br>";
             $insert = true;
@@ -170,7 +178,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $sql = "SELECT * FROM `notes`";
                 $result = mysqli_query($conn, $sql);
-                $row;
                 $sno = 0;
                 while ($row = mysqli_fetch_assoc($result)) {
                     $sno = $sno + 1;
@@ -180,8 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td>" . $row['note_title'] . "</td>
                     <td>" . $row['description'] . "</td>
                     <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <a href='/del'>Delete</a></td>
-                </tr>
-                ";
+                </tr>";
                 }
 
                 ?>
@@ -206,10 +212,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         edits = document.getElementsByClassName('edit');
         Array.from(edits).forEach((element) => {
             element.addEventListener("click", (e) => {
-                console.log("edit", );
-                tr = e.target.parentNode.parentNode
-                note_title = document.getElementsByTagName("td")[0].innerText;
-                description = document.getElementsByTagName("td")[1].innerText;
+                console.log("edit");
+                tr = e.target.parentNode.parentNode;
+                note_title = tr.getElementsByTagName("td")[0].innerText;
+                description = tr.getElementsByTagName("td")[1].innerText;
                 console.log(note_title, description);
                 note_title_edit.value = note_title;
                 description_edit.value = description;
