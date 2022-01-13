@@ -15,10 +15,15 @@ $conn = mysqli_connect($servername, $username, $password, $databasename);
 if (!$conn) {
     die("Sorry we failed to connect: " . mysqli_connect_error());
 }
-// 
+
+// exit();
 // Inserting data in database
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['snoEdit'])) {
+        echo 'yes';
+        exit();
+    }
     $title = $_POST["note_title"];
     $desc = $_POST["note_desc"];
     // SQL query to insert data in database
@@ -49,6 +54,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
+    <!-- Edit modal Button -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+        Edit Modal
+    </button> -->
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit This Note</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/iNotes/index.php" method="POST">
+                        <input type="hidden" name="snoEdit" id=snoEdit>
+                        <div class="mb-3">
+                            <label for="note_title" class="form-label">Note Title</label>
+                            <input type="text" class="form-control" id="note_title_edit" name="note_title_edit" aria-describedby="textHelp">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="note_desc" class="form-label">Note Description</label>
+                            <textarea class="form-control" id="note_desc_edit" name="note_desc_edit" rows="3" cols="10"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Note</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -128,10 +168,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <th scope='row'>" . $sno . "</th>
                     <td>" . $row['note_title'] . "</td>
                     <td>" . $row['note_desc'] . "</td>
-                    <td>Actions</td>
+                    <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <a href='/del'>Delete</a></td>
                 </tr>
                 ";
                 }
+
                 ?>
 
             </tbody>
@@ -140,7 +181,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <hr>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
@@ -149,8 +191,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $('#myTable').DataTable();
         });
     </script>
+    <script>
+        edits = document.getElementsByClassName('edit');
+        Array.from(edits).forEach((element) => {
+            element.addEventListener("click", (e) => {
+                console.log("edit", );
+                tr = e.target.parentNode.parentNode
+                note_title = document.getElementsByTagName("td")[0].innerText;
+                note_desc = document.getElementsByTagName("td")[1].innerText;
+                console.log(note_title, note_desc);
+                note_title_edit.value = note_title;
+                note_desc_edit.value = note_desc;
+                snoEdit.value = e.target.id;
+                console.log(e.target.id);
+                $('#editModal').modal('toggle');
+            })
 
-
+        })
+    </script>
 </body>
 
 </html>
