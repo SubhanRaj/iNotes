@@ -39,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result) {
             $update = true;
-            echo "<br>";
-            echo $sql;
         } else {
             echo "Error updating record: " . mysqli_error($conn);
             echo "<br>";
@@ -90,8 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit This Note</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
 
                 </div>
@@ -197,7 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td>" . $row['description'] . "</td>
                     <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <a href='/del'>Delete</a></td>
                 </tr>";
-                    echo $sql;
                 }
 
                 ?>
@@ -233,18 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $('#editModal').modal('show');
 
                 console.log(e.target.id)
-                // $('#editModal').modal('toggle');
 
-
-                // console.log(snoEdit);
-                // Why snoEdt picks up ] after the value of serial number?
-                // Because it is a string and not an integer
-                // Convert snoEdit to integer
-                // snoEdit = parseInt(snoEdit);
-                // console.log(snoEdit);
-                // Pic up serial number of the row
-                // snoEdit = e.target.getAttribute("id");
-                // $('#editModal').modal('toggle');
             })
         })
     </script>
