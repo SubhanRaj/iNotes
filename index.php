@@ -27,12 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Update the record
 
         $sno = $_POST["snoEdit"];
+        // Convert sno edit to integer
+        $sno = (int)$sno;
         $title = $_POST["note_titleEdit"];
         $description = $_POST["descriptionEdit"];
 
         // SQL query to update data in database
 
-        $sql = "UPDATE `notes` SET `note_title` = '$title' , `description` = '$description' WHERE `notes`.`sno` = $sno";
+        $sql = "UPDATE `notes` SET `note_title` = '$title' , `description` = '$description' WHERE `notes`.`sno` = $sno;";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
@@ -50,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $description = $_POST["description"];
 
         // SQL query to insert data in database
-        $sql = "INSERT INTO `notes` (`note_title`, `description`) VALUES ('$title', '$desc')";
+        $sql = "INSERT INTO `notes` (`note_title`, `description`) VALUES ('$title', '$description')";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
@@ -88,7 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit This Note</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
                     </button>
 
                 </div>
@@ -194,6 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td>" . $row['description'] . "</td>
                     <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <a href='/del'>Delete</a></td>
                 </tr>";
+                    echo $sql;
                 }
 
                 ?>
@@ -218,26 +222,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         edits = document.getElementsByClassName('edit');
         Array.from(edits).forEach((element) => {
             element.addEventListener("click", (e) => {
-                console.log("edit");
+                console.log("edit ");
                 tr = e.target.parentNode.parentNode;
                 note_title = tr.getElementsByTagName("td")[0].innerText;
                 description = tr.getElementsByTagName("td")[1].innerText;
                 console.log(note_title, description);
                 note_titleEdit.value = note_title;
                 descriptionEdit.value = description;
+                snoEdit.value = e.target.getAttribute("id");
+                $('#editModal').modal('show');
+
+                console.log(e.target.id)
+                // $('#editModal').modal('toggle');
 
 
-                console.log(snoEdit);
+                // console.log(snoEdit);
                 // Why snoEdt picks up ] after the value of serial number?
                 // Because it is a string and not an integer
                 // Convert snoEdit to integer
-                snoEdit = parseInt(snoEdit);
-                console.log(snoEdit);
+                // snoEdit = parseInt(snoEdit);
+                // console.log(snoEdit);
                 // Pic up serial number of the row
-                snoEdit = e.target.getAttribute("id");
-                $('#editModal').modal('toggle');
-            });
-        });
+                // snoEdit = e.target.getAttribute("id");
+                // $('#editModal').modal('toggle');
+            })
+        })
     </script>
 </body>
 
