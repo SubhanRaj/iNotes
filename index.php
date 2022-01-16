@@ -1,6 +1,8 @@
 <?PHP
 
 $insert = false;
+$update = false;
+$delete = false;
 
 // Connect to the database
 $servername = "localhost";
@@ -25,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Update the record
 
         $sno = $_POST["snoEdit"];
-        $title = $_POST["note_title_edit"];
-        $description = $_POST["description_edit"];
+        $title = $_POST["note_titleEdit"];
+        $description = $_POST["descriptionEdit"];
 
         // SQL query to update data in database
 
@@ -35,8 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result) {
             $update = true;
+            echo "<br>";
+            echo $sql;
         } else {
             echo "Error updating record: " . mysqli_error($conn);
+            echo "<br>";
+            echo $sql;
         }
     } else {
 
@@ -74,45 +80,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <!-- Edit modal Button -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-        Edit Modal
-    </button> -->
+
 
     <!-- Edit Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit This Note</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+
                 </div>
-                <div class="modal-body">
-                    <form action="/iNotes/index.php" method="POST">
-                        <input type="hidden" name="snoEdit" id=snoEdit>
-                        <div class="mb-3">
+
+                <form action="/iNotes/index.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="snoEdit" id="snoEdit">
+                        <div class="form-group mb-3">
                             <label for="note_title" class="form-label">Note Title</label>
-                            <input type="text" class="form-control" id="note_title_edit" name="note_title_edit" aria-describedby="textHelp">
+                            <input type="text" class="form-control" id="note_titleEdit" name="note_titleEdit" aria-describedby="textHelp">
 
                         </div>
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="description" class="form-label">Note Description</label>
-                            <textarea class="form-control" id="description_edit" name="description_edit" rows="3" cols="10"></textarea>
+                            <textarea class="form-control" id="descriptionEdit" name="descriptionEdit" rows="3" cols="10"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Note</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </div>
+    </div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">iNotes : A PHP CRUD Notes App</a>
+            <a class="navbar-brand" href="http://localhost/iNotes">iNotes : A PHP CRUD Notes App</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -122,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="http://localhost/phpmyadmin" target="_blank">PHPMyAdmin</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
@@ -151,9 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container my-3">
         <h2>Add a Note</h2>
         <form action="/iNotes/index.php" method="POST">
-            <div class="mb-3">
-                <label for="note_title" class="form-label">Note Title</label>
-                <input type="text" class="form-control" id="note_title" name="note_title" aria-describedby="textHelp">
+            <div class="form-group mb-3">
+                <label for="note_title" Note Title</label>
+                    <input type="text" class="form-control" id="note_title" name="note_title" aria-describedby="textHelp">
 
             </div>
             <div class="mb-3">
@@ -168,9 +174,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <table class="table" id="myTable">
             <thead>
                 <tr>
-                    <th scope="col">S. No.</th>
-                    <th scope="col">Note Title</th>
-                    <th scope="col">Note Description</th>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -182,8 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $sno = 0;
                 while ($row = mysqli_fetch_assoc($result)) {
                     $sno = $sno + 1;
-                    echo "
-                <tr>
+                    echo "<tr>
                     <th scope='row'>" . $sno . "</th>
                     <td>" . $row['note_title'] . "</td>
                     <td>" . $row['description'] . "</td>
@@ -218,14 +223,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 note_title = tr.getElementsByTagName("td")[0].innerText;
                 description = tr.getElementsByTagName("td")[1].innerText;
                 console.log(note_title, description);
-                note_title_edit.value = note_title;
-                description_edit.value = description;
-                snoEdit.value = e.target.id;
-                console.log(e.target.id);
-                $('#editModal').modal('toggle');
-            })
+                note_titleEdit.value = note_title;
+                descriptionEdit.value = description;
 
-        })
+
+                console.log(snoEdit);
+                // Why snoEdt picks up ] after the value of serial number?
+                // Because it is a string and not an integer
+                // Convert snoEdit to integer
+                snoEdit = parseInt(snoEdit);
+                console.log(snoEdit);
+                // Pic up serial number of the row
+                snoEdit = e.target.getAttribute("id");
+                $('#editModal').modal('toggle');
+            });
+        });
     </script>
 </body>
 
