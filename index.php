@@ -105,12 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="description" class="form-label">Note Description</label>
                             <textarea class="form-control" id="descriptionEdit" name="descriptionEdit" rows="3" cols="10"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Note</button>
+                        <button type="submit" class="btn btn-primary">Update Note</button> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
