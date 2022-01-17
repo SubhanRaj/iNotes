@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <th scope='row'>" . $sno . "</th>
                     <td>" . $row['note_title'] . "</td>
                     <td>" . $row['description'] . "</td>
-                    <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <a href='/del'>Delete</a></td>
+                    <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <button class='delete btn btn-sm btn-primary' id = d" . $row['sno'] . "]>Delete</button>
                 </tr>";
                 }
 
@@ -226,6 +226,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $('#editModal').modal('show');
 
                 console.log(e.target.id)
+
+            })
+        })
+        deletes = document.getElementsByClassName('delete');
+        Array.from(deletes).forEach((element) => {
+            element.addEventListener("click", (e) => {
+                console.log("delete ");
+                sno = e.target.id.substr(1,);
+                
+                if (confirm("Are you sure you want to delete the note?")) {
+                    console.log ("Yes");
+                    window.location = `/iNotes/index.php?delete = $ {sno}`;
+                    
+                }
+                else {
+                    console.log ("No")
+                }
+
 
             })
         })
