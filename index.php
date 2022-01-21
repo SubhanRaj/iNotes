@@ -22,7 +22,9 @@ if (!$conn) {
 
 if (isset($_GET['delete'])) {
     $sno = $_GET['delete'];
-    echo $sno;
+    $delete = true;
+    $sql = "DELETE FROM `notes` WHERE `sno` = $sno";
+    $result = mysqli_query($conn, $sql);
 }
 
 // Inserting data in database
@@ -32,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Update the record
 
-        $sno = $_POST["snoEdit"];
+        $sno = $_POST["snoEdit"]; 
         $title = $_POST["note_titleEdit"];
         $description = $_POST["descriptionEdit"];
 
