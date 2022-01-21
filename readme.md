@@ -1,13 +1,14 @@
 
 # iNotes : A PHP CRUD Notes App
 
-A PHP CRUD application which can take, edit and delete notes and display them in an ordered tabular form
+A PHP CRUD application which can take, edit and delete notes and display them in an ordered tabular form.
+
 ![Screenshot from 2022-01-21 11-46-53](https://user-images.githubusercontent.com/46089881/150480487-9efc97cf-6328-48b9-aec6-3cc4eead2dc3.png)
 
 
 
 
-## Tech Stack
+## Technologies
 
 **Client:** Bootstrap, PHP, MySQL DB
 
