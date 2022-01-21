@@ -1,2 +1,2 @@
-# PHP CRUD : A Note taking app using PHP
+# iNotes : A PHP CRUD Note Taking App
 
