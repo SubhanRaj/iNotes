@@ -18,7 +18,13 @@ if (!$conn) {
     die("Sorry we failed to connect: " . mysqli_connect_error());
 }
 
-// exit();
+// Deleting the record from Database
+
+if (isset($_GET['delete'])) {
+    $sno = $_GET['delete'];
+    echo $sno;
+}
+
 // Inserting data in database
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -27,8 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Update the record
 
         $sno = $_POST["snoEdit"];
-        // Convert sno edit to integer
-        $sno = (int)$sno;
         $title = $_POST["note_titleEdit"];
         $description = $_POST["descriptionEdit"];
 
@@ -57,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // echo "The record has been inserted sucessfully<br>";
             $insert = true;
         } else {
-            echo "The record was not inserted sucessfull becaue of this error ---> " . mysqli_error($conn);
+            echo "The record was not inserted sucessfull because of this error ---> " . mysqli_error($conn);
         }
     }
 }
@@ -112,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
     </div>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="http://localhost/iNotes">iNotes : A PHP CRUD Notes App</a>
@@ -138,15 +141,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </nav>
-    <!-- Alert when user insert note sucessfully -->
     <?PHP
-
+    // Alert when user insert note sucessfully
     if ($insert) {
         echo "<div class='alert alert-success warning alert-dismissible fade show' role='alert'>
-  <strong>Success!</strong> Your note has been inserted sucessfully.
-  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-</div>";
+    <strong>Success!</strong> Your note has been inserted sucessfully.
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>";
     }
+    // Alert when user update note sucessfully
+    if ($update) {
+        echo "<div class='alert alert-success warning alert-dismissible fade show' role='alert'>
+    <strong>Success!</strong> Your note has been updated sucessfully.
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>";
+    }
+
+    //Alert when user delete note sucessfully
+
+    if ($delete) {
+        echo "<div class='alert alert-success warning alert-dismissible fade show' role='alert'>
+    <strong>Success!</strong> Your note has been deleted sucessfully.
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>";
+    }
+
 
     ?>
 
@@ -189,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <th scope='row'>" . $sno . "</th>
                     <td>" . $row['note_title'] . "</td>
                     <td>" . $row['description'] . "</td>
-                    <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . "]>Edit</button> <button class='delete btn btn-sm btn-primary' id = d" . $row['sno'] . "]>Delete</button>
+                    <td><button class='edit btn btn-sm btn-primary' id = " . $row['sno'] . ">Edit</button> <button class='delete btn btn-sm btn-primary' id = d" . $row['sno'] . ">Delete</button>
                 </tr>";
                 }
 
@@ -232,16 +251,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         deletes = document.getElementsByClassName('delete');
         Array.from(deletes).forEach((element) => {
             element.addEventListener("click", (e) => {
-                console.log("delete ");
-                sno = e.target.id.substr(1,);
-                
+                console.log("delete ", );
+                sno = e.target.id.substr(1, );
+
                 if (confirm("Are you sure you want to delete the note?")) {
-                    console.log ("Yes");
-                    window.location = `/iNotes/index.php?delete = $ {sno}`;
-                    
-                }
-                else {
-                    console.log ("No")
+                    console.log("Yes");
+                    window.location = `/iNotes/index.php?delete=${sno}`;
+
+                } else {
+                    console.log("No");
                 }
 
 
