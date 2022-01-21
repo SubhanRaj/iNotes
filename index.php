@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Update the record
 
-        $sno = $_POST["snoEdit"]; 
+        $sno = $_POST["snoEdit"];
         $title = $_POST["note_titleEdit"];
         $description = $_POST["descriptionEdit"];
 
@@ -76,6 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="iNotesFavicon.png" type="image/x-icon">
     <meta name="theme-color" content="rgb(0,0,0)">
 
     <!-- Bootstrap CSS -->
@@ -133,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a class="nav-link" href="http://localhost/phpmyadmin" target="_blank">PHPMyAdmin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="https://masterofcosmos.com" target="_blank">Contact the Dev</a>
                     </li>
                 </ul>
                 <form class="d-flex">
