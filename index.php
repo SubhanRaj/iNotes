@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a class="navbar-brand" href="http://localhost/iNotes">
                 <img src="iNotes.png" alt="" height="40px">
             </a>
-            <a class="navbar-brand" href="http://localhost/iNotes">iNotes : A PHP CRUD Notes App</a>
+            <a class="navbar-brand" href="/iNotes">iNotes : A PHP CRUD Notes App</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/phpmyadmin" target="_blank">PHPMyAdmin</a>
+                        <a class="nav-link" href="/phpmyadmin" target="_blank">PHPMyAdmin</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://masterofcosmos.com" target="_blank">Contact the Dev</a>
