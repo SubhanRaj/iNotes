@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="http://localhost/iNotes">
+            <a class="navbar-brand" href="/iNotes">
                 <img src="iNotes.png" alt="" height="40px">
             </a>
             <a class="navbar-brand" href="/iNotes">iNotes : A PHP CRUD Notes App</a>
