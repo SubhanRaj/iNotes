@@ -1,7 +1,8 @@
 {
     "name": "iNotes",
     "short_name": "iNotes",
-    "start_url": "/",
+    "start_url": "index.php",
+    "scope": "./",
     "icons": [{
             "src": "icons/manifest-icon-192.maskable.png",
             "sizes": "192x192",
